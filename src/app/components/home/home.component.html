@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="filters">
+    <mat-form-field class="filters-form-field">
+      <mat-label>Sort By</mat-label>
+      <mat-select
+        panel-class="filters-select"
+        [(ngModel)]="sort"
+        (selectionChange)="sortResults(sort)"
+        (change)="sortResults(sort)"
+      >
+        <mat-option value="{{ DOWNLOAD_SPEED_ASC }}">
+          Download speed: from Low to High
+        </mat-option>
+
+        <mat-option value="{{ DOWNLOAD_SPEED_DESC }}">
+          Download speed: from High to Low
+        </mat-option>
+
+        <mat-option value="{{ UPLOAD_SPEED_ASC }}">
+          Upload speed: from Low to High
+        </mat-option>
+
+        <mat-option value="{{ UPLOAD_SPEED_DESC }}">
+          Upload speed: from High to Low
+        </mat-option>
+
+        <mat-option value="{{ PRICE_ASC }}">
+          Price: from Low to High
+        </mat-option>
+        <mat-option value="{{ PRICE_DESC }}"
+          >Price: from High to Low</mat-option
+        >
+        <mat-option value="{{ DEFAULT }}">Default</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <ng-container *ngFor="let result of sortedResults; let indexOfResult = index">
+    <div class="card">
+      <div class="card-number">{{ indexOfResult + 1 }}</div>
+      <div class="card-content">
+        <p class="card-title">{{ result.name }}</p>
+
+        <div class="card-speed">
+          <p class="card-speed-type">Download Speed</p>
+
+          <p class="card-speed-info">
+            <span class="card-speed-icon-container">
+              <mat-icon
+                aria-hidden="false"
+                aria-label="download icon"
+                class="card-speed-icon-size"
+              >
+                arrow_downward
+              </mat-icon>
+            </span>
+            <span class="card-speed-text">
+              {{ result.downloadSpeed }}
+            </span>
+            <span class="card-speed-measure"> Mbit/s </span>
+          </p>
+
+          <p class="card-speed-type">Upload Speed</p>
+
+          <p class="card-speed-info">
+            <span class="card-speed-icon-container">
+              <mat-icon
+                aria-hidden="false"
+                aria-label="download icon"
+                class="card-speed-icon-size"
+              >
+                arrow_upward
+              </mat-icon>
+            </span>
+            <span class="card-speed-text">
+              {{ result.uploadSpeed }}
+            </span>
+            <span class="card-speed-measure"> Mbit/s </span>
+          </p>
+        </div>
+
+        <div class="card-benefits">
+          <ul class="card-benefits-list">
+            <ng-container *ngFor="let benefit of result.benefits">
+              <li class="card-benefits-item">{{ benefit }}</li>
+            </ng-container>
+          </ul>
+        </div>
+
+        <div class="card-price-action">
+          <span class="card-price">{{ result.price }} €</span>
+          <button class="card-action">
+            <span class="card-action-text">To Tariff</span>
+            >
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
